@@ -1,0 +1,177 @@
+<!DOCTYPE html>         
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAPPY TEACHER'S DAY</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden; /* Prevent scrolling due to falling bubbles */
+            position: relative;
+            background-image: url('m.jpg'); /* Background image */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /* Cover the entire viewport */
+            background-color: #ec8bdc; /* Fallback color */
+        }
+
+        /* Bubble styles */
+        .bubble {
+            position: absolute;
+            border-radius: 50%; /* Make bubbles circular */
+            opacity: 0.7;
+            animation: fall linear infinite; /* Falling animation */
+        }
+
+        /* Animation for falling bubbles */
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px); /* Start slightly above the viewport */
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh); /* Move down to the bottom */
+                opacity: 0;
+            }
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #1192e7;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #a81ff7;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: black; /* Change text color to black */
+            font-weight: bold; /* Make text bold */
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 300px;
+        }
+
+        .teacher {
+            margin: 10px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .teacher img {
+            width: 100px; /* Adjust size as needed */
+            height: auto;
+            border-radius: 50%; /* Makes image circular */
+        }
+    </style>
+</head>
+<body>
+
+<h1>"HAPPY TEACHER'S DAY"</h1>
+<p>"TEACHERS PLANT SEEDS OF KNOWLEDGE THAT GROW FOREVER!"</p>
+
+<div id="buttons">
+    <div class="teacher">
+        <img src="bry.jpg" alt="Mr. Bryan Cabrido" onclick="showMessage('Mr. BRYAN CABRIDO')">
+        <button onclick="showMessage('Mr. BRYAN CABRIDO')">Mr. BRYAN CABRIDO</button>
+    </div>
+    <div class="teacher">
+        <img src="kia.jpg" alt="Ms. Khiarra Villegas" onclick="showMessage('Ms. KHIARRA VILLEGAS')">
+        <button onclick="showMessage('Ms. KHIARRA VILLEGAS')">Ms. KHIARRA VILLEGAS</button>
+    </div>
+    <div class="teacher">
+        <img src="jess.jpg" alt="Mrs. Jessa" onclick="showMessage('Mrs. JESSA')">
+        <button onclick="showMessage('Mrs. JESSA')">Mrs. JESSA</button>
+    </div>
+    <div class="teacher">
+        <img src="mar.jpg" alt="Mr. Marvin Saraza" onclick="showMessage('Mr. MARVIN SARAZA')">
+        <button onclick="showMessage('Mr. MARVIN SARAZA')">Mr. MARVIN SARAZA</button>
+    </div>
+    <div class="teacher">
+        <img src="cris.jpg" alt="Mr. Christian Nobleza" onclick="showMessage('Mr. CHRISTIAN NOBLEZA')">
+        <button onclick="showMessage('Mr. CHRISTIAN NOBLEZA')">Mr. CHRISTIAN NOBLEZA</button>
+    </div>
+</div>
+
+<input type="text" id="customMessage" placeholder="Type your custom message here">
+<select id="teacherSelect">
+    <option value="">Select a teacher</option>
+    <option value="Mr. BRYAN CABRIDO">Mr. BRYAN CABRIDO</option>
+    <option value="Ms. KHIARRA VILLEGAS">Ms. KHIARRA VILLEGAS</option>
+    <option value="Mrs. JESSA">Mrs. JESSA</option>
+    <option value="Mr. MARVIN SARAZA">Mr. MARVIN SARAZA</option>
+    <option value="Mr. CHRISTIAN NOBLEZA">Mr. CHRISTIAN NOBLEZA</option>
+</select>
+<button onclick="sendCustomMessage()">Send Custom Message</button>
+
+<p id="message"></p>
+
+<script>
+    const teachers = {
+        "Mr. BRYAN CABRIDO": "Thank you, Mr. BRYAN, for inspiring us every day. You create an engaging classroom environment where learning feels exciting and rewarding.",
+        "Ms. KHIARRA VILLEGAS": "Thank you, Ms. KHIARRA, for your guidance and support. You create a welcoming atmosphere that encourages us to ask questions and explore new ideas.",
+        "Mrs. JESSA": "Thank you, Mrs. JESSA, for making learning fun. Your patience and encouragement inspire me to push my limits and strive for my best.",
+        "Mr. MARVIN SARAZA": "Thank you, Mr. MARVIN, for your dedication and patience. Your guidance has motivated me to work harder and aim higher.",
+        "Mr. CHRISTIAN NOBLEZA": "Thank you, Mr. CHRISTIAN ALYAS JAMES RAID, for your creativity and in teaching. You inspire us to think outside the box and express ourselves."
+    };
+
+    function showMessage(teacher) {
+        const message = teachers[teacher];
+        document.getElementById("message").innerText = message;
+    }
+
+    function sendCustomMessage() {
+        const customMessage = document.getElementById("customMessage").value;
+        const selectedTeacher = document.getElementById("teacherSelect").value;
+
+        if (selectedTeacher) {
+            document.getElementById("message").innerText = `${customMessage} - Sent to ${selectedTeacher}!`;
+        } else {
+            alert("Please select a teacher to send your message!");
+        }
+    }
+
+    // Function to create falling bubbles
+    function createBubble() {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        bubble.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+        bubble.style.backgroundColor = getRandomColor(); // Random bubble color
+        bubble.style.width = Math.random() * 30 + 20 + 'px'; // Random bubble size
+        bubble.style.height = bubble.style.width; // Make bubble circular
+        bubble.style.animationDuration = Math.random() * 3 + 2 + 's'; // Random fall duration
+        document.body.appendChild(bubble);
+
+        // Remove bubble after animation ends
+        bubble.addEventListener('animationend', () => {
+            bubble.remove();
+        });
+    }
+
+    // Function to get random colors
+    function getRandomColor() {
+        const colors = ['#FF69B4', '#00FF00', '#FFFF00', '#FF0000', '#8A2BE2', '#A52A2A', '#0000FF']; // Pink, green, yellow, red, violet, brown, blue
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Create bubbles continuously
+    setInterval(createBubble, 500); // Create a bubble every 500 milliseconds
+</script>
+
+</body>
+</html>
